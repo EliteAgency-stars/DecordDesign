@@ -2,18 +2,19 @@ import { Hero } from '@/components/Hero';
 import { Lamina } from '@/components/Lamina';
 import { Comparador } from '@/components/Comparador';
 import { Portafolio } from '@/components/Portafolio';
-import { Contacto } from '@/components/Contacto';
-import { CATEGORIAS, imagenesDe, pares, portada, proyectos, totalImagenes } from '@/lib/portafolio';
+import { Configurador } from '@/components/configurador/Configurador';
+import { CATEGORIAS, imagen, imagenesDe, pares, portada, proyectos, totalImagenes } from '@/lib/portafolio';
 import { MARCA, waLink } from '@/lib/marca';
 
 // Servicios tal como aparecen en el portafolio (página 5).
+// [título, descripción, servicio preseleccionado en el configurador]
 const SERVICIOS = [
-  ['Remodelaciones', 'Transformamos locales, oficinas y viviendas para que trabajen mejor y comuniquen tu marca desde la entrada.'],
-  ['Planimetría', 'Planos arquitectónicos y técnicos claros, listos para cotizar, construir y tramitar.'],
-  ['Visualización arquitectónica', 'Renders fotorrealistas para que veas tu espacio terminado antes de mover un solo ladrillo.'],
-  ['Asesoría de diseño', 'Diseño interior, mobiliario arquitectónico y carpintería a medida, con criterio y presupuesto.'],
-  ['Licencias de construcción', 'Te acompañamos en el trámite para que tu obra arranque en regla y sin sorpresas.'],
-  ['Obra civil', 'Ejecutamos con nuestro propio equipo: lo que diseñamos es lo que entregamos.'],
+  ['Remodelaciones', 'Transformamos locales, oficinas y viviendas para que trabajen mejor y comuniquen tu marca desde la entrada.', 'remodelacion'],
+  ['Planimetría', 'Planos arquitectónicos y técnicos claros, listos para cotizar, construir y tramitar.', 'planimetria'],
+  ['Visualización arquitectónica', 'Renders fotorrealistas para que veas tu espacio terminado antes de mover un solo ladrillo.', 'interior'],
+  ['Asesoría de diseño', 'Diseño interior, mobiliario arquitectónico y carpintería a medida, con criterio y presupuesto.', 'interior'],
+  ['Licencias de construcción', 'Te acompañamos en el trámite para que tu obra arranque en regla y sin sorpresas.', 'planimetria'],
+  ['Obra civil', 'Ejecutamos con nuestro propio equipo: lo que diseñamos es lo que entregamos.', 'construccion'],
 ];
 
 const PROCESO = [
@@ -43,13 +44,13 @@ export default function Inicio() {
             Un solo equipo desde la idea hasta la entrega: diseñamos, tramitamos y construimos.
           </Lamina>
           <ol className="grid gap-px bg-crema/20 sm:grid-cols-2 lg:grid-cols-3">
-            {SERVICIOS.map(([t, d], i) => (
+            {SERVICIOS.map(([t, d, k], i) => (
               <li key={t} className="group bg-espresso p-8">
                 <span className="font-mono text-xs tracking-widest text-crema/60">{String(i + 1).padStart(2, '0')}</span>
                 <h3 className="mt-6 font-display text-3xl">{t}</h3>
                 <span className="mt-4 block h-px w-10 bg-crema/50 transition-all duration-500 group-hover:w-full" />
                 <p className="mt-4 leading-relaxed text-crema/80">{d}</p>
-                <a href="#contacto" className="mt-6 inline-block text-sm underline underline-offset-4 opacity-80 hover:opacity-100">
+                <a href={`/?servicio=${k}#configurador`} className="mt-6 inline-block text-sm underline underline-offset-4 opacity-80 hover:opacity-100">
                   Cotizar {t.toLowerCase()} →
                 </a>
               </li>
@@ -102,20 +103,19 @@ export default function Inicio() {
         </div>
       </section>
 
-      <section id="contacto" className="border-t border-linea bg-arena/40">
-        <div className="mx-auto grid max-w-7xl gap-16 px-4 py-24 md:px-8 lg:grid-cols-[1fr_1.3fr]">
-          <div>
-            <Lamina n={6} titulo="Construye tu" cursiva="proyecto" />
-            <p className="-mt-6 text-lg leading-relaxed text-espresso/80">
-              Cuéntanos qué tienes en mente y te respondemos por WhatsApp. Ese primer mensaje es el primer trazo de tu espacio.
-            </p>
-            <ul className="mt-10 space-y-3">
-              <li><a className="underline underline-offset-4" href={waLink('Hola Decord Design, quiero información sobre un proyecto.')}>WhatsApp {MARCA.telefono}</a></li>
-              <li><a className="underline underline-offset-4" href={`mailto:${MARCA.email}`}>{MARCA.email}</a></li>
-              <li><a className="underline underline-offset-4" href={`https://instagram.com/${MARCA.instagram}`}>@{MARCA.instagram}</a></li>
-            </ul>
-          </div>
-          <Contacto />
+      <section id="configurador" className="border-t border-linea bg-arena/40">
+        <div className="mx-auto max-w-7xl px-4 py-24 md:px-8">
+          <Lamina n={6} titulo="Construye tu" cursiva="proyecto">
+            Responde 10 preguntas y mira cómo tu espacio se arma en vivo. Al final te enviamos la maqueta y empezamos a diseñarlo contigo.
+          </Lamina>
+          <Configurador
+            miniaturas={{ minimalista: imagen('p021-1'), calido: imagen('p064-1'), industrial: imagen('p251-1'), lujo: imagen('p224-1') }}
+          />
+          <ul className="mt-14 flex flex-wrap gap-x-8 gap-y-3 border-t border-linea pt-6 text-sm">
+            <li><a className="underline underline-offset-4" href={waLink('Hola Decord Design, quiero información sobre un proyecto.')}>WhatsApp {MARCA.telefono}</a></li>
+            <li><a className="underline underline-offset-4" href={`mailto:${MARCA.email}`}>{MARCA.email}</a></li>
+            <li><a className="underline underline-offset-4" href={`https://instagram.com/${MARCA.instagram}`}>@{MARCA.instagram}</a></li>
+          </ul>
         </div>
       </section>
     </>

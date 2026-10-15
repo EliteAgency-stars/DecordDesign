@@ -19,7 +19,7 @@ export function Hero() {
             primer trazo a la entrega, con un solo equipo.
           </p>
           <div className="aparecer mt-10 flex flex-wrap gap-4" style={{ '--d': '0.5s' } as React.CSSProperties}>
-            <a href="#contacto" className="rounded-full bg-espresso px-7 py-4 text-crema transition hover:bg-tinta">
+            <a href="#configurador" className="rounded-full bg-espresso px-7 py-4 text-crema transition hover:bg-tinta">
               Construye tu proyecto
             </a>
             <a href="#portafolio" className="rounded-full border border-espresso px-7 py-4 transition hover:bg-espresso hover:text-crema">

@@ -23,7 +23,7 @@ export function Encabezado() {
           ))}
         </nav>
         <a
-          href="/#contacto"
+          href="/#configurador"
           className="rounded-full bg-espresso px-5 py-2.5 text-sm text-crema transition hover:bg-tinta"
         >
           Construye tu proyecto

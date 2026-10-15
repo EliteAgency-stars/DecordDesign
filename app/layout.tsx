@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { Instrument_Serif, Inter } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import { Encabezado } from '@/components/Encabezado';
 import { Pie } from '@/components/Pie';
 import { MARCA } from '@/lib/marca';
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Encabezado />
         <main id="contenido">{children}</main>
         <Pie />
+        <Analytics />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </body>
     </html>
