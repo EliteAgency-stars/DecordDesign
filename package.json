@@ -1,0 +1,11 @@
+{
+  "name": "decord-design",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "inventario": "python scripts/inventario.py && node scripts/optimizar.mjs"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.5"
+  }
+}

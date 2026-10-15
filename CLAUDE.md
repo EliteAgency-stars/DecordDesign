@@ -1,0 +1,71 @@
+# Decord Design — sitio web
+
+Landing de conversión para DECORD DESIGN SAS (@decordesign_sas), una empresa de diseño, remodelación, construcción y planimetría en Colombia. El objetivo es convertir visitas en solicitudes de proyecto calificadas. Se despliega en Vercel automáticamente con cada push a `main` (repo público: EliteAgency-stars/DecordDesign).
+
+## Estado
+
+| Fase | Estado |
+|---|---|
+| 1. Auditoría y migración del PDF | ✅ hecha (2026-10-14), **pendiente de aprobación del inventario** |
+| 2. Identidad visual (tokens, tipografía, logo SVG) | pendiente |
+| 3. Next.js + landing (láminas 00–07) | pendiente |
+| 4. Hero 3D por scroll | pendiente |
+| 5. Configurador 3D + backend (Supabase, Resend, Turnstile) | pendiente |
+| 6. SEO, analítica, rendimiento, Playwright, despliegue | pendiente |
+
+No se escriben componentes hasta que el cliente apruebe el inventario.
+
+## Datos reales del PDF (usar tal cual)
+
+- Teléfono / WhatsApp: **305 896 79 04** (+57 305 896 7904)
+- Correo: **decordesign1sas@gmail.com**
+- Web: **www.decordesign.com.co**
+- Instagram: **@decordesign_sas**
+- Fundadora: Valentina Pedraza (Archicad, SketchUp, Enscape, Illustrator)
+- Servicios según el PDF: Planimetría, Visualización arquitectónica (render), Asesoría de diseño, Licencias de construcción, Remodelaciones, Obra civil. Quiénes somos: constructora y comercializadora; decoración de interiores, carpintería, obra civil, asesoría en arquitectura e ingeniería y asesoría jurídica.
+- Ciudades con proyectos: Bogotá, Sibaté, Facatativá, Mosquera, La Vega, Medellín, Barranquilla.
+
+**No inventar:** años de experiencia, cantidad de proyectos, testimonios, rangos de inversión, la política de datos ni los clientes. Usar `[COMPLETAR: ...]`.
+
+**Privacidad:** los nombres de clientes del PDF viven solo en `migracion/clientes.json` (fuera de git). En el sitio se muestra un cliente solo si su entrada tiene `"publicar": true`.
+
+## Migración del portafolio
+
+- PDF: `insumos/portafolio-decord.pdf` (fuera de git; Canva, 258 págs., 1440×810 pt).
+- Las imágenes vienen de Canva a **800 px máximo**: no hay versiones de 1280/2048 sin inventar píxeles. Se generan 640 + ancho nativo. Para un hero nítido se necesitan los originales.
+- Para regenerar: `pip install pymupdf imagehash pillow`, luego `python scripts/extraer.py .`, `python scripts/ids.py` y `npm run inventario`.
+  - `scripts/inventario.py`: clasifica por rango de páginas (el pie de página de cada página trae el tipo, la ciudad y el cliente), aplica la transparencia, renderiza desde la página las plantas que Canva rota o recorta, y escribe `migracion/inventario.json`.
+  - `scripts/optimizar.mjs`: sharp genera AVIF + WebP y el blur, sin EXIF. **Es incremental**: solo procesa imágenes sin `blur`.
+- Salida: `public/portafolio/{id}-{ancho}.{avif|webp}` y `public/marca/logo-{oscuro|claro}.png`.
+- **Agregar imágenes nuevas:** añade el proyecto a `PROYECTOS` (o una entrada nueva) y corre `npm run inventario`. El sitio lee todo de `inventario.json`; no se escriben imágenes a mano.
+
+## Dirección de arte
+
+Lujo silencioso, arquitectura editorial: fondo crema, espresso para el texto, mucho aire, líneas finas de plano (cotas, ejes, retícula, «LÁMINA 01 / 07»).
+
+Paleta tomada del PDF; los tokens definitivos se fijan en la fase 2:
+
+| Token | Hex | Origen |
+|---|---|---|
+| crema | #EFE8DE | fondo de la portada |
+| espresso | #362B25 | fondo de «Contenido» |
+| arena | #CFC3B3 | panel de «Quiénes somos» |
+| taupe | #BDB2A0 | «Proyectos realizados» |
+| tinta | #111111 | logo |
+
+Tipografía: el PDF usa una serif didona en itálica («Proyectos *DISEÑADOS*»). La propuesta es Instrument Serif para los títulos e Inter para el texto.
+
+## Stack previsto
+
+Next.js (App Router) + TypeScript estricto, Tailwind, R3F + drei, GSAP + ScrollTrigger, Lenis, Motion, Zustand, React Hook Form + Zod, Supabase, Resend, Turnstile, Vercel Analytics y Playwright.
+
+## Estructura (prevista)
+
+```
+app/                 page.tsx (láminas 00–07), proyectos/[slug], api/leads
+components/          laminas/, hero3d/, configurador/, ui/
+lib/                 portafolio.ts (lee inventario), buildScene.ts (puro, testeable)
+migracion/           inventario.json (fuente de verdad), hojas/ (contact sheets, fuera de git)
+public/portafolio/   imágenes optimizadas
+scripts/             inventario.py, optimizar.mjs
+```

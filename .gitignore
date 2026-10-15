@@ -1,0 +1,12 @@
+insumos/
+migracion/raw/
+migracion/paginas/
+migracion/hojas/
+node_modules/
+.next/
+.env*
+!.env.example
+.vercel
+migracion/limpias/
+migracion/clientes.json
+migracion/texto-completo.txt
