@@ -6,14 +6,16 @@ Landing de conversión para DECORD DESIGN SAS (@decordesign_sas), una empresa de
 
 | Fase | Estado |
 |---|---|
-| 1. Auditoría y migración del PDF | ✅ hecha (2026-10-14), **pendiente de aprobación del inventario** |
-| 2. Identidad visual (tokens, tipografía, logo SVG) | pendiente |
-| 3. Next.js + landing (láminas 00–07) | pendiente |
+| 1. Auditoría y migración del PDF | ✅ hecha y aprobada (2026-10-14) |
+| 2. Identidad visual (tokens, tipografía, logo SVG) | parcial: tokens en `app/globals.css`, Instrument Serif + Inter; falta el logo en SVG |
+| 3. Next.js + landing (láminas 00–07) | ✅ v1 publicada en https://decordesign.vercel.app (el contacto abre WhatsApp, todavía sin backend) |
 | 4. Hero 3D por scroll | pendiente |
 | 5. Configurador 3D + backend (Supabase, Resend, Turnstile) | pendiente |
 | 6. SEO, analítica, rendimiento, Playwright, despliegue | pendiente |
 
-No se escriben componentes hasta que el cliente apruebe el inventario.
+Decisiones por defecto, mientras el cliente no responda: el motel está oculto (`OCULTOS` en `lib/portafolio.ts`); las páginas 94–101 se muestran como «Restaurante» sin cliente; no se publica ningún cliente; la fundadora aparece con texto y sin foto; se omiten la sección de cifras y los testimonios hasta tener datos reales.
+
+`lib/portafolio.ts` es `server-only` (importa el inventario completo). Los componentes cliente importan tipos y rutas desde `lib/imagen.ts`.
 
 ## Datos reales del PDF (usar tal cual)
 

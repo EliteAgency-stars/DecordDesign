@@ -39,7 +39,7 @@ export const imagen = (id: string) => imagenes.find((i) => i.id === id)!;
 
 export const portada = (slug: string) => {
   const im = imagenesDe(slug);
-  return im.find((i) => i.calidad === 'hero') ?? im.find((i) => i.tipo === 'obra-terminada') ?? im.find((i) => i.tipo === 'render') ?? im[0];
+  return im.find((i) => i.calidad === 'hero' && i.tipo === 'obra-terminada') ?? im.find((i) => i.calidad === 'hero') ?? im.find((i) => i.tipo === 'obra-terminada') ?? im.find((i) => i.tipo === 'render') ?? im[0];
 };
 
 export const pares = imagenes
