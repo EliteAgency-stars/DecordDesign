@@ -10,3 +10,5 @@ node_modules/
 migracion/limpias/
 migracion/clientes.json
 migracion/texto-completo.txt
+next-env.d.ts
+*.tsbuildinfo

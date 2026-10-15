@@ -1,0 +1,6 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "decord", "runtimeExecutable": "npm", "runtimeArgs": ["run", "start", "--", "-p", "3010"], "port": 3010 }
+  ]
+}

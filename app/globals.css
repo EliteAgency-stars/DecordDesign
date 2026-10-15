@@ -1,0 +1,83 @@
+@import 'tailwindcss';
+
+/* Paleta tomada del portafolio PDF (ver CLAUDE.md) */
+@theme {
+  --color-crema: #efe8de;
+  --color-arena: #cfc3b3;
+  --color-taupe: #bdb2a0;
+  --color-espresso: #362b25;
+  --color-tinta: #1d1714;
+  --color-linea: rgb(54 43 37 / 0.22);
+  --font-display: var(--font-instrument), Georgia, serif;
+  --font-sans: var(--font-inter), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+body {
+  background: var(--color-crema);
+  color: var(--color-espresso);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+:focus-visible {
+  outline: 2px solid var(--color-espresso);
+  outline-offset: 3px;
+}
+
+/* Retícula técnica tenue */
+.reticula {
+  background-image:
+    linear-gradient(var(--color-linea) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-linea) 1px, transparent 1px);
+  background-size: 64px 64px;
+  background-position: -1px -1px;
+}
+.reticula-suave {
+  background-image:
+    linear-gradient(rgb(54 43 37 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(54 43 37 / 0.07) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Trazo de plano que se dibuja */
+.trazo {
+  stroke-dasharray: var(--l, 1200);
+  stroke-dashoffset: var(--l, 1200);
+  animation: dibujar 2.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes dibujar {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+.aparecer {
+  opacity: 0;
+  animation: aparecer 0.9s ease-out forwards;
+  animation-delay: var(--d, 0s);
+}
+@keyframes aparecer {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .trazo,
+  .aparecer {
+    animation: none;
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+}
